@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Mutual NDA",
+    "description": "Mutual Non-Disclosure Agreement",
+    "filename": "Mutual-NDA_Mutual-NDA-coverpage.md"
+  },
+  {
+    "name": "Mutual NDA",
+    "description": "Mutual Non-Disclosure Agreement",
+    "filename": "Mutual-NDA_Mutual-NDA.md"
+  },
+  {
+    "name": "CSA",
+    "description": "Cloud Service Agreement",
+    "filename": "CSA_CSA.md"
+  },
+  {
+    "name": "Design Partner Agreement",
+    "description": "Design Partner Agreement",
+    "filename": "Design-Partner-Agreement_design-partner-agreement.md"
+  },
+  {
+    "name": "SLA",
+    "description": "Service Level Agreement",
+    "filename": "SLA_sla.md"
+  },
+  {
+    "name": "PSA",
+    "description": "Professional Services Agreement",
+    "filename": "PSA_psa.md"
+  },
+  {
+    "name": "DPA",
+    "description": "Data Processing Agreement",
+    "filename": "DPA_DPA.md"
+  },
+  {
+    "name": "Software License Agreement",
+    "description": "Software License Agreement",
+    "filename": "Software-License-Agreement_Software-License-Agreement.md"
+  },
+  {
+    "name": "Partnership Agreement",
+    "description": "Partnership Agreement",
+    "filename": "Partnership-Agreement_Partnership-Agreement.md"
+  },
+  {
+    "name": "Pilot Agreement",
+    "description": "Pilot Agreement",
+    "filename": "Pilot-Agreement_Pilot-Agreement.md"
+  },
+  {
+    "name": "BAA",
+    "description": "Business Associate Agreement",
+    "filename": "BAA_BAA.md"
+  },
+  {
+    "name": "AI Addendum",
+    "description": "AI Addendum",
+    "filename": "AI-Addendum_AI-Addendum.md"
+  }
+]
