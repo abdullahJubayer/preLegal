@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { MndaFormData } from "@/types/nda";
-import { Download, Copy, Check, Eye, Code } from "lucide-react";
+import { Download, Copy, Check, Eye, Code, FileDown } from "lucide-react";
 import confetti from "canvas-confetti";
 
 interface PreviewProps {
@@ -12,6 +12,7 @@ interface PreviewProps {
 
 export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
   const [copied, setCopied] = useState(false);
+  const [downloadingPdf, setDownloadingPdf] = useState(false);
   const [viewMode, setViewMode] = useState<"formatted" | "markdown">("formatted");
 
   const handleCopy = () => {
@@ -36,14 +37,45 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
     });
   };
 
-  const handlePrint = () => {
-    window.print();
+  const handleDownloadPdf = async () => {
+    const element = document.getElementById("printable-document");
+    if (!element) return;
+
+    setDownloadingPdf(true);
+
+    try {
+      // Dynamically import html2pdf for client-side rendering
+      const html2pdf = (await import("html2pdf.js")).default;
+      const filename = `Mutual_NDA_${data.party1Company.replace(/\s+/g, "_")}_${data.party2Company.replace(/\s+/g, "_")}.pdf`;
+
+      const options = {
+        margin: [0.4, 0.4, 0.4, 0.4],
+        filename: filename,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, logging: false, useCORS: true },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      };
+
+      await html2pdf().set(options).from(element).save();
+
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.8 },
+      });
+    } catch (err) {
+      console.error("PDF generation failed, falling back to print dialog:", err);
+      window.print();
+    } finally {
+      setDownloadingPdf(false);
+    }
   };
 
   return (
     <div className="space-y-4">
       {/* Action Bar */}
-      <div className="flex items-center justify-between bg-slate-800/80 backdrop-blur-md p-3 rounded-xl border border-slate-700/60 shadow-lg">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-800/80 backdrop-blur-md p-3 rounded-xl border border-slate-700/60 shadow-lg">
         <div className="flex items-center gap-1 bg-slate-900/80 p-1 rounded-lg border border-slate-800">
           <button
             onClick={() => setViewMode("formatted")}
@@ -75,11 +107,21 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
             {copied ? "Copied!" : "Copy"}
           </button>
+          
           <button
             onClick={handleDownloadMarkdown}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-md hover:shadow-indigo-500/25 transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-700/80 hover:bg-slate-600 text-slate-200 border border-slate-600 transition"
           >
-            <Download className="w-3.5 h-3.5" /> Download .md
+            <FileDown className="w-3.5 h-3.5" /> .md
+          </button>
+
+          <button
+            onClick={handleDownloadPdf}
+            disabled={downloadingPdf}
+            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-rose-500 to-indigo-600 hover:from-rose-600 hover:to-indigo-700 disabled:opacity-50 text-white shadow-md hover:shadow-indigo-500/25 transition"
+          >
+            <Download className="w-3.5 h-3.5" />
+            {downloadingPdf ? "Generating PDF..." : "Download PDF"}
           </button>
         </div>
       </div>
