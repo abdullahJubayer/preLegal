@@ -39,7 +39,7 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
 
   const handleDownloadPdf = async () => {
     const element = document.getElementById("printable-document");
-    if (!element) return;
+    if (!element || downloadingPdf) return;
 
     setDownloadingPdf(true);
 
@@ -47,6 +47,17 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
       // Dynamically import html2pdf for client-side rendering
       const html2pdf = (await import("html2pdf.js")).default;
       const filename = `Mutual_NDA_${data.party1Company.replace(/\s+/g, "_")}_${data.party2Company.replace(/\s+/g, "_")}.pdf`;
+
+      // Create a clean standalone clone of the printable document
+      const clone = element.cloneNode(true) as HTMLElement;
+      clone.style.position = "absolute";
+      clone.style.left = "-9999px";
+      clone.style.top = "0px";
+      clone.style.width = "800px";
+      clone.style.backgroundColor = "#ffffff";
+      clone.style.color = "#0f172a";
+
+      document.body.appendChild(clone);
 
       const options = {
         margin: [0.4, 0.4, 0.4, 0.4],
@@ -56,20 +67,19 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
           scale: 2, 
           logging: false, 
           useCORS: true,
-          // html2canvas color compatibility for modern CSS variables / oklch / lab
-          onclone: (clonedDoc: Document) => {
-            const el = clonedDoc.getElementById("printable-document");
-            if (el) {
-              el.style.backgroundColor = "#ffffff";
-              el.style.color = "#0f172a";
-            }
-          }
         },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       };
 
-      await html2pdf().set(options).from(element).save();
+      // Generate PDF worker chain cleanly
+      const worker = html2pdf().set(options).from(clone);
+      await worker.save();
+
+      // Clean up cloned element from DOM
+      if (document.body.contains(clone)) {
+        document.body.removeChild(clone);
+      }
 
       confetti({
         particleCount: 100,
@@ -80,7 +90,10 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
       console.warn("Falling back to native print to PDF:", err);
       window.print();
     } finally {
-      setDownloadingPdf(false);
+      // Guaranteed reset of downloadingPdf state
+      setTimeout(() => {
+        setDownloadingPdf(false);
+      }, 500);
     }
   };
 
