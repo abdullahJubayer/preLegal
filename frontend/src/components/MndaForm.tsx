@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MndaFormData } from "@/types/nda";
-import { Building2, User, FileText, Calendar, ShieldCheck, Scale, Sparkles } from "lucide-react";
+import { Building2, User, FileText, Calendar, Scale } from "lucide-react";
 
 interface FormProps {
   data: MndaFormData;
@@ -52,7 +52,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
           </label>
           <textarea
             name="purpose"
-            value={data.purpose}
+            value={data.purpose || ""}
             onChange={handleChange}
             rows={2}
             className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
@@ -66,7 +66,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="date"
               name="effectiveDate"
-              value={data.effectiveDate}
+              value={data.effectiveDate || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
             />
@@ -92,7 +92,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="mndaTermYears"
-              value={data.mndaTermYears}
+              value={data.mndaTermYears || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
               placeholder="1 year(s)"
@@ -127,7 +127,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
               <input
                 type="text"
                 name="confidentialityTermYears"
-                value={data.confidentialityTermYears}
+                value={data.confidentialityTermYears || ""}
                 onChange={handleChange}
                 className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
                 placeholder="1 year(s)"
@@ -142,7 +142,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="governingLaw"
-              value={data.governingLaw}
+              value={data.governingLaw || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
               placeholder="e.g. Delaware"
@@ -154,7 +154,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="jurisdiction"
-              value={data.jurisdiction}
+              value={data.jurisdiction || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
               placeholder="e.g. courts located in New Castle County, Delaware"
@@ -167,7 +167,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
           <input
             type="text"
             name="modifications"
-            value={data.modifications}
+            value={data.modifications || ""}
             onChange={handleChange}
             className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition"
             placeholder="None or custom clauses..."
@@ -187,7 +187,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party1Company"
-              value={data.party1Company}
+              value={data.party1Company || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition"
             />
@@ -198,7 +198,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party1Name"
-              value={data.party1Name}
+              value={data.party1Name || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition"
             />
@@ -211,7 +211,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party1Title"
-              value={data.party1Title}
+              value={data.party1Title || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition"
             />
@@ -222,7 +222,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party1Address"
-              value={data.party1Address}
+              value={data.party1Address || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition"
             />
@@ -242,7 +242,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party2Company"
-              value={data.party2Company}
+              value={data.party2Company || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition"
             />
@@ -253,7 +253,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party2Name"
-              value={data.party2Name}
+              value={data.party2Name || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition"
             />
@@ -266,7 +266,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party2Title"
-              value={data.party2Title}
+              value={data.party2Title || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition"
             />
@@ -277,7 +277,7 @@ export const MndaForm: React.FC<FormProps> = ({ data, onChange, onReset }) => {
             <input
               type="text"
               name="party2Address"
-              value={data.party2Address}
+              value={data.party2Address || ""}
               onChange={handleChange}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition"
             />
