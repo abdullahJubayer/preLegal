@@ -5,7 +5,7 @@ import { MndaFormData, initialFormData } from "@/types/nda";
 import { generateMndaMarkdown } from "@/utils/generateMnda";
 import { MndaForm } from "@/components/MndaForm";
 import { MndaPreview } from "@/components/MndaPreview";
-import { Scale, FileText, Sparkles } from "lucide-react";
+import { Scale, Sparkles } from "lucide-react";
 
 export default function Home() {
   const [formData, setFormData] = useState<MndaFormData>(initialFormData);
