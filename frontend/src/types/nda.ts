@@ -25,7 +25,7 @@ export interface MndaFormData {
 
 export const initialFormData: MndaFormData = {
   purpose: "Evaluating whether to enter into a business relationship with the other party.",
-  effectiveDate: new Date().toISOString().split("T")[0],
+  effectiveDate: "2026-08-02",
   mndaTermType: "fixed",
   mndaTermYears: "1 year(s)",
   confidentialityTermType: "fixed",
