@@ -52,7 +52,19 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
         margin: [0.4, 0.4, 0.4, 0.4],
         filename: filename,
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, logging: false, useCORS: true },
+        html2canvas: { 
+          scale: 2, 
+          logging: false, 
+          useCORS: true,
+          // html2canvas color compatibility for modern CSS variables / oklch / lab
+          onclone: (clonedDoc: Document) => {
+            const el = clonedDoc.getElementById("printable-document");
+            if (el) {
+              el.style.backgroundColor = "#ffffff";
+              el.style.color = "#0f172a";
+            }
+          }
+        },
         jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       };
@@ -65,7 +77,7 @@ export const MndaPreview: React.FC<PreviewProps> = ({ data, markdown }) => {
         origin: { y: 0.8 },
       });
     } catch (err) {
-      console.error("PDF generation failed, falling back to print dialog:", err);
+      console.warn("Falling back to native print to PDF:", err);
       window.print();
     } finally {
       setDownloadingPdf(false);
